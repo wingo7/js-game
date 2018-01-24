@@ -1,0 +1,9 @@
+canvas {
+	display: block;
+	margin: 0 auto;
+}
+
+#player, #bullet {
+	margin-top: -650px;
+	background-color: #aaa;
+}
