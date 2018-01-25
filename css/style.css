@@ -1,3 +1,8 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
 canvas {
 	display: block;
 	margin: 0 auto;
@@ -5,5 +10,5 @@ canvas {
 
 #player, #bullet {
 	margin-top: -650px;
-	background-color: #aaa;
+	
 }
