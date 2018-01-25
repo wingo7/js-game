@@ -6,9 +6,9 @@
 canvas {
 	display: block;
 	margin: 0 auto;
+	
 }
 
-#player, #bullet {
+#player, #bullet,#enemy {
 	margin-top: -650px;
-	
 }
