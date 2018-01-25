@@ -1,3 +1,4 @@
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
@@ -7,15 +8,30 @@ var ctxPl = plCanvas.getContext('2d');
 var blt = document.getElementById('bullet');
 var ctxBlt = blt.getContext('2d');
 
+var enCanvas = document.getElementById('enemy');
+var ctxEn = enCanvas.getContext('2d');
+
 var bg = new Image();
-bg.src = 'img/bg.jpg';
+bg.src = 'img/bg.png';
 
 var pl = new Image();
-pl.src = 'img/pl.png';
+pl.src = 'img/pla.png';
+
+var en = new Image();
+en.src = 'img/enemy.png'
 
 var player = {
-	pos: [5,472]
+	pos: [600,472]
 }
+
+var enemy = {
+	pos: [1300, 472]
+}
+
+var requestFrame = 	window.requestAnimationFrame || window.webkitRequestAnimationFrame || 
+					window.mozRequestAnimationFrame ||
+					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame;
 
 var bullets1 = [];
 var bullets = [];
@@ -27,6 +43,8 @@ var heroWidth = 125;
 var heroHeight = 125; 
 var sx = 0; 
 var sy = 0; 
+var enSx = 0;
+var enSy = 0; 
 var b = 0;
 var b1 = 0;
 canvas.width = gameWidth;
@@ -35,9 +53,10 @@ plCanvas.width = gameWidth;
 plCanvas.height = gameHeight;
 blt.width = gameWidth;
 blt.height = gameHeight;
+enCanvas.width = gameWidth;
+enCanvas.height = gameHeight;
 
 document.addEventListener("keydown", keyDownHandler, false);
-
 function keyDownHandler(e) {
     switch(e.keyCode) {
     	case 39: { 
@@ -86,12 +105,16 @@ function keyDownHandler(e) {
 	    			b1++;
 	    	}
 	    }
+	    default: 
+	    if(side)
+	    sx = 0; 
+		else sx = 750;
     }
 }
 
-function draw() {
+ function draw() {
 	ctxPl.clearRect(0,0, gameWidth, gameHeight);
-	ctx.drawImage(bg, 0, 0);
+	ctx.drawImage(bg, 0,0);
 	ctxPl.drawImage(pl, sx, sy, heroWidth, heroHeight, player.pos[0], player.pos[1], heroWidth, heroHeight);
 }
 
@@ -117,13 +140,21 @@ function drawBullet1() {
     ctxBlt.fillStyle = "#FF9900";
     ctxBlt.fill();
     ctxBlt.closePath();
+	}
+}
+function drawEnemy() {
+	ctxEn.clearRect(0,0, gameWidth, gameHeight);
+	ctxEn.drawImage(en, enSx, enSy, heroWidth, heroHeight, enemy.pos[0], enemy.pos[1], heroWidth, heroHeight);
+	if(enSx < 625)
+	enSx += 125; 
+	else enSx = 125;
+	enemy.pos[0] -= 25;
 }
 
-}
 
 function init(){
 	draw();
-	requestAnimationFrame(init); 
+	requestFrame(init); 
 	ctxBlt.clearRect(0,0, gameWidth, gameHeight);	
 	for(var i = 0; i<bullets.length; i++){
 		bullets[i].x = bullets[i].x + 10;
@@ -134,5 +165,6 @@ function init(){
 	}
 	drawBullet1();
 }
-
 init();
+
+setInterval(drawEnemy, 325);
