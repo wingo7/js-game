@@ -164,7 +164,7 @@ function checkKill() {
 		}
 
 	for(var i = 0; i<bullets1.length; i++) {
-		if(bullets1[i].x >= enemy.pos[0] - 10 &&bullets1[i].x <= enemy.pos[0] + 20) {
+		if(bullets1[i].x >= enemy.pos[0] && bullets1[i].x <= enemy.pos[0]+ 45) {
 			delete bullets1[i].x;
 			delete bullets1[i].y;
 			}
