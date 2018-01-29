@@ -56,6 +56,10 @@ blt.height = gameHeight;
 enCanvas.width = gameWidth;
 enCanvas.height = gameHeight;
 
+function Enemy() {
+
+}
+
 document.addEventListener("keydown", keyDownHandler, false);
 function keyDownHandler(e) {
     switch(e.keyCode) {
@@ -151,6 +155,14 @@ function drawEnemy() {
 	enemy.pos[0] -= 25;
 }
 
+function checkKill() {
+	for(var i = 0; i<bullets.length; i++) {
+		if(bullets[i].x >= enemy.pos[0] - 10 &&bullets[i].x <= enemy.pos[0] + 20) {
+			delete bullets[i].x;
+			delete bullets[i].y;
+			}
+		}
+}
 
 function init(){
 	draw();
@@ -164,6 +176,7 @@ function init(){
 		bullets1[i].x = bullets1[i].x - 10;
 	}
 	drawBullet1();
+	checkKill();
 }
 init();
 
